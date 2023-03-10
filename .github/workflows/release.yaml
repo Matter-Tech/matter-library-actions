@@ -78,6 +78,11 @@ jobs:
       run: |
         gh release create --verify-tag $TAG_NUMBER dist/*
 
+    - name: Publish a Python distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+
     - name: Creating PR with new version
       env:
         PR_BODY: "Preparing release from ${{ steps.current-version.outputs.version }} to ${{ steps.bumped-version.outputs.version }}"
