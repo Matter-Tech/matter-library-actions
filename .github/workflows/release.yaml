@@ -19,6 +19,7 @@ jobs:
       pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     steps:
     - uses: actions/checkout@v3
 
@@ -81,7 +82,7 @@ jobs:
     - name: Publish a Python distribution to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
+        password: $PYPI_TOKEN
 
     - name: Creating PR with new version
       env:
