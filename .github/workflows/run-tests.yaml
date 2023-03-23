@@ -53,7 +53,7 @@ jobs:
       - name: Installing building dependencies for MacOs
         if: matrix.os == 'macos-latest'
         run: |
-          brew install openssl
+          brew install curl-openssl
 
       - name: Installing Hatch
         run: pip install --upgrade hatch
