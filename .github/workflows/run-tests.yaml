@@ -51,7 +51,7 @@ jobs:
           sudo apt update && sudo apt-get install -f libcurl4-openssl-dev libssl-dev
 
       - name: Installing building dependencies for MacOs
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'macos-latest'
         run: |
           brew install openssl
 
