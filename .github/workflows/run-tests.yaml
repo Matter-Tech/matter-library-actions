@@ -56,10 +56,10 @@ jobs:
           brew upgrade openssl
 
       - name: Installing Hatch
-        env:
-          CPPFLAGS: "-I/usr/local/opt/openssl/include"
-          LDFLAGS: "-L/usr/local/opt/openssl/lib"
         run: pip install --upgrade hatch
 
       - name: Running tests
+        env:
+          CPPFLAGS: "-I$(brew --prefix)/opt/curl/include"
+          LDFLAGS: "-L$(brew --prefix)/opt/curl/lib"
         run: hatch run test
