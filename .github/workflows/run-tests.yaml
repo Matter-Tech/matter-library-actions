@@ -45,10 +45,15 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
 
-      - name: Installing building dependencies
+      - name: Installing building dependencies for Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt update && sudo apt-get install -f libcurl4-openssl-dev libssl-dev
+
+      - name: Installing building dependencies for MacOs
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          brew install openssl
 
       - name: Installing Hatch
         run: pip install --upgrade hatch
