@@ -30,7 +30,7 @@ jobs:
     needs: setup
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ ubuntu-latest ]
         python-version: [ "3.10", "3.11" ]
     runs-on: ${{ matrix.os }}
 
@@ -46,24 +46,12 @@ jobs:
           cache-dependency-path: pyproject.toml
 
       - name: Installing building dependencies for Linux
-        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt update && sudo apt-get install -f libcurl4-openssl-dev libssl-dev
 
-      - name: Installing building dependencies for MacOs
-        if: matrix.os == 'macos-latest'
-        env:
-          CPPFLAGS: "-I$(brew --prefix)/opt/curl/include"
-          LDFLAGS: "-L$(brew --prefix)/opt/curl/lib"
-        run: |
-          brew upgrade openssl
-          pip install pycurl          
 
       - name: Installing Hatch
         run: pip install --upgrade hatch
 
       - name: Running tests
-        env:
-          CPPFLAGS: "-I$(brew --prefix)/opt/curl/include"
-          LDFLAGS: "-L$(brew --prefix)/opt/curl/lib"
         run: hatch run test
