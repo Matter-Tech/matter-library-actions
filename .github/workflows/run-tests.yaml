@@ -52,8 +52,12 @@ jobs:
 
       - name: Installing building dependencies for MacOs
         if: matrix.os == 'macos-latest'
+        env:
+          CPPFLAGS: "-I$(brew --prefix)/opt/curl/include"
+          LDFLAGS: "-L$(brew --prefix)/opt/curl/lib"
         run: |
           brew upgrade openssl
+          pip install pycurl          
 
       - name: Installing Hatch
         run: pip install --upgrade hatch
