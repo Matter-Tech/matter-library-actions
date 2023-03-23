@@ -45,7 +45,7 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
 
-      - name: Intalling build dependencies
+      - name: Installing building dependencies
         run: |
           sudo apt update && sudo apt-get install -f libcurl4-openssl-dev libssl-dev
 
