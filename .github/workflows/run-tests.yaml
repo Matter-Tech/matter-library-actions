@@ -45,6 +45,10 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
 
+      - name: Intalling build dependencies
+        run: |
+          sudo apt update && sudo apt-get install -f libcurl4-openssl-dev libssl-dev
+
       - name: Installing Hatch
         run: pip install --upgrade hatch
 
