@@ -22,7 +22,7 @@ on: push
 jobs:
   code-lint:
     name: Code Lint
-    uses: Matter-Tech/matter-library-actions/.github/workflows/lint.yaml@v0
+    uses: Matter-Tech/matter-library-actions/.github/workflows/lint.yaml@v2
 ```
 
 ## Run tests
@@ -37,7 +37,7 @@ on: push
 jobs:
   run-test:
     name: Run tests
-    uses: Matter-Tech/matter-library-actions/.github/workflows/run-tests.yaml@v0
+    uses: Matter-Tech/matter-library-actions/.github/workflows/run-tests.yaml@v2
 ```
 
 
@@ -59,7 +59,7 @@ on:
 jobs:
   release-version:
     name: Release new version
-    uses: Matter-Tech/matter-library-actions/.github/workflows/release.yaml@v0.0.1
+    uses: Matter-Tech/matter-library-actions/.github/workflows/release.yaml@v2
     with:
       release-type: ${{github.event.inputs.release-type}}
 ```
