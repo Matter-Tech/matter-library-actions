@@ -49,9 +49,28 @@ jobs:
         run: |
           sudo apt update && sudo apt-get install -f libcurl4-openssl-dev libssl-dev
 
-
       - name: Installing Hatch
         run: pip install --upgrade hatch
 
+      # in matter_persistence running docker compose is necessary
+      - name: Check if docker-compose.yaml exists
+        id: check-docker-compose
+        run: |
+          if [ -f docker-compose.yaml ]; then
+          echo "docker-compose.yaml found."
+          echo "::set-output name=compose-exists::true"
+          else
+          echo "docker-compose.yaml not found."
+          echo "::set-output name=compose-exists::false"
+          fi
+
+      - name: Docker Compose Up
+        if: steps.check-compose.outputs.compose-exists == 'true'
+        run: docker compose up -d
+
       - name: Running tests
         run: hatch run test
+
+      - name: Docker Compose Down
+        if: steps.check-compose.outputs.compose-exists == 'true'
+        run: docker compose down -v
