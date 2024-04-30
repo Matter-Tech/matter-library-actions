@@ -52,36 +52,5 @@ jobs:
       - name: Installing Hatch
         run: pip install --upgrade hatch
 
-      - name: Check if docker-compose.yaml exists
-        id: check-docker-compose
-        run: |
-          if [ -f docker-compose.yaml ]; then
-            echo "docker-compose.yaml found."
-            echo "COMPOSE_EXISTS=true" >> $GITHUB_OUTPUT
-          else
-            echo "docker-compose.yaml not found."
-            echo "COMPOSE_EXISTS=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Set up test environment
-        env:
-          COMPOSE_EXISTS: ${{ steps.check-docker-compose.outputs.COMPOSE_EXISTS }}
-        run: |
-          if [ $COMPOSE_EXISTS == 'true' ]; then
-            docker compose up -d
-          else
-            echo "docker-compose.yaml does not exists"
-          fi
-
       - name: Running tests
         run: hatch run test
-
-      - name: Tear down test environment
-        env:
-          COMPOSE_EXISTS: ${{ steps.check-docker-compose.outputs.COMPOSE_EXISTS }}
-        run: |
-          if [ $COMPOSE_EXISTS == 'true' ]; then
-            docker compose down -v
-          else
-            echo "docker-compose.yaml does not exists"
-          fi
